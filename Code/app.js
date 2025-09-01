@@ -1,34 +1,35 @@
 const slides = document.querySelectorAll(".img");
 
-let slideIndex = 0;
-initSlide();
+let index = 0;
 
 function initSlide() {
-  slides[slideIndex].classList.add("showslide");
+  slides[index].classList.add("showslide");
 }
-function showslide(index) {
-  if (index >= slides.length) {
-    slideIndex = 0;
-  } else if (index < 0) {
-    slideIndex = slides.length - 1;
+function currSlide(i) {
+  if (i >= slides.length) {
+    index = 0;
+  } else if (i < 0) {
+    index = slides.length - 1;
+  } else {
+    index = i;
   }
-  slides.forEach((slide) => {
-    slide.classList.remove("showslide");
-  });
-  slides[slideIndex].classList.add("showslide");
-}
 
+  slides.forEach((slide) => slide.classList.remove("showslide"));
+  slides[index].classList.add("showslide");
+}
 function nextSlide() {
-  slideIndex += 1;
-  showslide();
+  index = index + 1;
+  currSlide(index);
 }
 function prevSlide() {
-  slideIndex -= 1;
-  showslide();
+  index = index - 1;
+  currSlide(index);
 }
 
-const next = document.querySelector("#right");
-const prev = document.querySelector("#left");
+initSlide();
 
-next.addEventListener("click", nextSlide);
-prev.addEventListener("click", prevSlide);
+const left = document.querySelector("#left");
+const right = document.querySelector("#right");
+
+left.addEventListener("click", prevSlide);
+right.addEventListener("click", nextSlide);
